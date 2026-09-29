@@ -1,0 +1,16 @@
+.venv/
+venv/
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+__pycache__/
+*.pyc
+.env
+data/raw/
+mlruns/
+models/*.pkl
+models/*.joblib
+.ipynb_checkpoints/
+.ruff_cache/
+.pytest_cache/
