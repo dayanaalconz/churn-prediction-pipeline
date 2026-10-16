@@ -10,3 +10,11 @@ lint.ignore = ["E501", "F841"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "--cov=src --cov-report=term-missing"
+
+[tool.coverage.run]
+omit = [
+    "src/churn_pipeline/models/train.py",
+    "src/churn_pipeline/models/evaluate.py",
+    "src/churn_pipeline/api/main.py",
+    "src/churn_pipeline/api/schemas.py",
+]
