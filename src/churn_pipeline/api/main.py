@@ -5,21 +5,24 @@ Endpoints:
 - GET  /health   — health check
 - POST /predict  — predict churn for one customer
 """
-from fastapi import FastAPI, HTTPException
+import logging
+import sys
 from contextlib import asynccontextmanager
+from pathlib import Path
+
 import joblib
 import pandas as pd
-from pathlib import Path
-import sys
-import logging
+from fastapi import FastAPI, HTTPException
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from src.churn_pipeline.features.engineering import FeatureEngineer
 from src.churn_pipeline.api.schemas import (
-    CustomerFeatures, PredictionResponse, HealthResponse
+    CustomerFeatures,
+    HealthResponse,
+    PredictionResponse,
 )
+from src.churn_pipeline.features.engineering import FeatureEngineer
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +86,7 @@ def predict(customer: CustomerFeatures):
         input_data = pd.DataFrame([customer.model_dump()])
 
         # Apply binary encoding (Yes/No → 1/0)
-        from src.churn_pipeline.data.preprocessing import BinaryEncoder, BINARY_COLS
+        from src.churn_pipeline.data.preprocessing import BINARY_COLS, BinaryEncoder
         binary_encoder = BinaryEncoder(columns=BINARY_COLS)
         input_data = binary_encoder.transform(input_data)
 

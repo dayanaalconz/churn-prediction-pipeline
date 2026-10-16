@@ -4,18 +4,21 @@ Model evaluation with business metrics for the Churn Prediction Pipeline.
 Beyond standard ML metrics, we translate model performance into
 business impact: how many churners do we catch, and at what cost?
 """
-import numpy as np
-import pandas as pd
+import logging
+from pathlib import Path
+
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 from matplotlib.colors import LinearSegmentedColormap
 from sklearn.metrics import (
-    roc_auc_score, roc_curve, precision_recall_curve,
-    confusion_matrix, classification_report, f1_score
+    classification_report,
+    confusion_matrix,
+    f1_score,
+    precision_recall_curve,
+    roc_auc_score,
+    roc_curve,
 )
-from pathlib import Path
-import joblib
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -249,17 +252,14 @@ def plot_business_impact(y_test, y_prob, model_name: str,
                 dpi=150, bbox_inches="tight", facecolor=BACKGROUND)
     plt.show()
 
-    print(f"\nBusiness Impact Analysis:")
+    print("\nBusiness Impact Analysis:")
     print(f"  Optimal threshold: {best_t:.2f}")
     print(f"  Max net savings per {len(y_test):,} customers: €{best_saving:,.0f}")
     print(f"  Assumptions: retention=€{retention_cost}, churn cost=€{churn_cost}")
 
 
 if __name__ == "__main__":
-    from pathlib import Path
     import sys
+    from pathlib import Path
     sys.path.insert(0, str(Path(".").resolve()))
 
-    from src.churn_pipeline.data.loader import load_raw_data
-    from src.churn_pipeline.data.preprocessing import prepare_data
-    from src.churn_pipeline.features.engineering import FeatureEngineer

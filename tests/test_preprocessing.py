@@ -1,18 +1,15 @@
 """
 Unit tests for the preprocessing module.
 """
-import pytest
 import pandas as pd
-import numpy as np
+import pytest
+
 from src.churn_pipeline.data.preprocessing import (
+    COLS_TO_DROP,
     BinaryEncoder,
     DropColumns,
     prepare_data,
-    build_preprocessor,
-    BINARY_COLS,
-    COLS_TO_DROP,
 )
-
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
 

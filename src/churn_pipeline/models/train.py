@@ -5,24 +5,26 @@ Models trained:
 - Baseline: Logistic Regression
 - Final: XGBoost with hyperparameter tuning
 """
+import logging
+from pathlib import Path
+
 import mlflow
 import mlflow.sklearn
 import mlflow.xgboost
-import pandas as pd
-import numpy as np
-from pathlib import Path
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
-from sklearn.pipeline import Pipeline
 from sklearn.metrics import (
-    roc_auc_score, f1_score, precision_score,
-    recall_score, classification_report
+    classification_report,
+    f1_score,
+    precision_score,
+    recall_score,
+    roc_auc_score,
 )
+from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split
+from sklearn.pipeline import Pipeline
 from xgboost import XGBClassifier
-import logging
 
 from src.churn_pipeline.data.loader import load_raw_data
-from src.churn_pipeline.data.preprocessing import prepare_data, build_preprocessor
+from src.churn_pipeline.data.preprocessing import build_preprocessor, prepare_data
 from src.churn_pipeline.features.engineering import FeatureEngineer
 
 logger = logging.getLogger(__name__)
@@ -136,7 +138,7 @@ def train_baseline(X_train, X_test, y_train, y_test) -> dict:
         )
 
         logger.info(f"Baseline — ROC-AUC: {metrics['roc_auc']:.4f} | F1: {metrics['f1']:.4f}")
-        print(f"\nBaseline Logistic Regression:")
+        print("\nBaseline Logistic Regression:")
         print(f"  ROC-AUC:  {metrics['roc_auc']:.4f}")
         print(f"  F1:       {metrics['f1']:.4f}")
         print(f"  Precision:{metrics['precision']:.4f}")
@@ -215,7 +217,7 @@ def train_xgboost(X_train, X_test, y_train, y_test) -> dict:
         mlflow.log_artifact(str(MODELS_DIR / "xgboost_pipeline.joblib"))
 
         logger.info(f"XGBoost — ROC-AUC: {metrics['roc_auc']:.4f} | F1: {metrics['f1']:.4f}")
-        print(f"\nXGBoost:")
+        print("\nXGBoost:")
         print(f"  ROC-AUC:  {metrics['roc_auc']:.4f}")
         print(f"  F1:       {metrics['f1']:.4f}")
         print(f"  Precision:{metrics['precision']:.4f}")

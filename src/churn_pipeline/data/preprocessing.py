@@ -8,14 +8,13 @@ Decisions based on EDA findings:
 - TotalCharges already imputed with 0 in loader
 - class_weight='balanced' handled at model level
 """
+import logging
+
 import pandas as pd
-import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
-import logging
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 
 logger = logging.getLogger(__name__)
 
@@ -109,7 +108,6 @@ def build_preprocessor() -> ColumnTransformer:
     )
 
     from sklearn.pipeline import Pipeline as SkPipeline
-    from sklearn.impute import SimpleImputer
 
     numeric_transformer = SkPipeline([
         ("imputer", SimpleImputer(strategy="median")),

@@ -8,10 +8,10 @@ New features based on EDA findings:
 - has_no_support: no tech support + no online security flag
 - is_fiber_high_charge: Fiber optic + high monthly charge interaction
 """
-import pandas as pd
-import numpy as np
-from sklearn.base import BaseEstimator, TransformerMixin
 import logging
+
+import pandas as pd
+from sklearn.base import BaseEstimator, TransformerMixin
 
 logger = logging.getLogger(__name__)
 
@@ -61,6 +61,6 @@ class FeatureEngineer(BaseEstimator, TransformerMixin):
         X["is_fiber_high_charge"] = (is_fiber & is_expensive).astype(int)
 
         logger.info(f"Feature engineering complete — new shape: {X.shape}")
-        logger.info(f"New features: tenure_group, services_count, is_high_value, has_no_support, is_fiber_high_charge")
+        logger.info("New features: tenure_group, services_count, is_high_value, has_no_support, is_fiber_high_charge")
 
         return X

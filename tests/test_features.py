@@ -1,11 +1,10 @@
 """
 Unit tests for the feature engineering module.
 """
-import pytest
 import pandas as pd
-import numpy as np
-from src.churn_pipeline.features.engineering import FeatureEngineer
+import pytest
 
+from src.churn_pipeline.features.engineering import FeatureEngineer
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
 
