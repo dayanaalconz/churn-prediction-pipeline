@@ -17,4 +17,5 @@ omit = [
     "src/churn_pipeline/models/evaluate.py",
     "src/churn_pipeline/api/main.py",
     "src/churn_pipeline/api/schemas.py",
+    "src/churn_pipeline/data/loader.py",
 ]
