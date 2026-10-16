@@ -26,6 +26,7 @@ jobs:
                       mlflow fastapi uvicorn pydantic \
                       pytest pytest-cov httpx \
                       black ruff matplotlib seaborn
+          pip install -e .
 
       - name: Lint with ruff
         run: ruff check src/ tests/
