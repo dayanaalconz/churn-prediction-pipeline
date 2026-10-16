@@ -20,10 +20,12 @@ A telecommunications company needs to identify customers at risk of churning **3
 ---
 
 ## Architecture
-raw data → feature engineering → preprocessing → model training → REST API
-↓ ↓ ↓ ↓ ↓
-loader.py engineering.py preprocessing.py train.py main.py
-MLflow FastAPI
+
+**Data flow:**  
+`raw data` → `feature engineering` → `preprocessing` → `model training` → `REST API`
+
+**Modules:**  
+`loader.py` → `engineering.py` → `preprocessing.py` → `train.py` → `main.py` (FastAPI)
 
 
 ---
@@ -45,25 +47,27 @@ MLflow FastAPI
 
 ## Project Structure
 
+```
 churn-prediction-pipeline/
-├── .github/workflows/ # CI pipeline
+├── .github/workflows/    # CI pipeline
 ├── data/
-│ ├── raw/ # raw data (gitignored)
-│ └── processed/ # EDA plots and processed files
-├── models/ # serialised model (gitignored)
+│   ├── raw/              # raw data (gitignored)
+│   └── processed/        # EDA plots and processed files
+├── models/               # serialised model (gitignored)
 ├── notebooks/
-│ ├── 01_eda.ipynb # exploratory data analysis
-│ └── 02_feature_engineering.ipynb # feature engineering walkthrough
+│   ├── 01_eda.ipynb
+│   └── 02_feature_engineering.ipynb
 ├── src/churn_pipeline/
-│ ├── api/ # FastAPI app
-│ ├── data/ # data loading and preprocessing
-│ ├── features/ # feature engineering
-│ └── models/ # training and evaluation
-├── tests/ # unit tests
+│   ├── api/
+│   ├── data/
+│   ├── features/
+│   └── models/
+├── tests/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── pyproject.toml
 └── requirements.txt
+```
 
 
 ---
