@@ -14,6 +14,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
 import logging
 
 logger = logging.getLogger(__name__)
@@ -30,7 +31,8 @@ ORDINAL_CATEGORIES = [["Month-to-month", "One year", "Two year"]]
 ONEHOT_COLS = [
     "InternetService", "PaymentMethod", "MultipleLines",
     "OnlineSecurity", "OnlineBackup", "DeviceProtection",
-    "TechSupport", "StreamingTV", "StreamingMovies"
+    "TechSupport", "StreamingTV", "StreamingMovies",
+    "tenure_group"
 ]
 
 BINARY_COLS = [
@@ -106,7 +108,13 @@ def build_preprocessor() -> ColumnTransformer:
         drop="first"
     )
 
-    numeric_transformer = StandardScaler()
+    from sklearn.pipeline import Pipeline as SkPipeline
+    from sklearn.impute import SimpleImputer
+
+    numeric_transformer = SkPipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler())
+    ])
 
     preprocessor = ColumnTransformer(
         transformers=[
